@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Explore North Star Bakery's fresh breads, cakes, and pastries.">
+  <title>Contact | North Star Bakery</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main-content">Skip to main content</a>
+<header class="site-header"><div class="header-inner">
+  <div class="brand"><img src="bakery-logo_c.png" alt="North Star Bakery logo" width="94">
+    <h1>North Star Bakery</h1></div>
+  <nav class="site-nav" aria-label="Main navigation"><a href="index.html">Home</a>
+<a href="products.html">Products</a>
+<a href="about.html">About Us</a>
+<a href="contact.html" aria-current="page">Contact</a></nav>
+</div></header>
+<main id="main-content">
+<section><h2>Contact Us</h2><p class="intro">We would love to hear from you! Send us a message with your questions or comments.</p>
+<form id="contact-form" action="#" method="post"><fieldset><legend>Contact Information</legend>
+<label for="name">Full Name:</label><input type="text" id="name" name="name" autocomplete="name" required>
+<label for="email">Email Address:</label><input type="email" id="email" name="email" autocomplete="email" required>
+<label for="subject">Subject:</label><input type="text" id="subject" name="subject" required>
+<label for="message">Your Message:</label><textarea id="message" name="message" rows="5" required></textarea>
+</fieldset><p class="form-note">Classroom demonstration form. No messages are actually sent.</p>
+<button type="submit">Send Message</button><p id="form-feedback" class="form-feedback" role="status" aria-live="polite"></p>
+</form></section>
+<section class="info-panel"><h2>Visit Our Bakery</h2><p>We look forward to serving you fresh breads, cakes, and pastries.</p></section>
+<script>document.getElementById('contact-form').addEventListener('submit',function(event){event.preventDefault();document.getElementById('form-feedback').textContent='Thank you! This is a demo, so your message was not sent.';});</script>
+</main>
+<footer class="site-footer"><p>&copy; 2026 North Star Bakery. All rights reserved.</p>
+<p><a href="contact.html">Contact Us</a> &middot; <a href="index.html">Back to Home</a></p></footer>
+</body>
+</html>
