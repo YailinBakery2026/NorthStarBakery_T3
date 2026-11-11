@@ -28,7 +28,97 @@
 <button type="submit">Send Message</button><p id="form-feedback" class="form-feedback" role="status" aria-live="polite"></p>
 </form></section>
 <section class="info-panel"><h2>Visit Our Bakery</h2><p>We look forward to serving you fresh breads, cakes, and pastries.</p></section>
-<script>document.getElementById('contact-form').addEventListener('submit',function(event){event.preventDefault();document.getElementById('form-feedback').textContent='Thank you! This is a demo, so your message was not sent.';});</script>
+
+<script>
+const form = document.getElementById("contact-form");
+const feedback = document.getElementById("form-feedback");
+
+function validateForm(data) {
+  const errors = [];
+
+  if (data.name.length < 2) {
+    errors.push("Enter a name with at least 2 characters.");
+  }
+
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) {
+    errors.push("Enter a valid email address.");
+  }
+
+  if (data.subject.length < 3) {
+    errors.push("Enter a subject with at least 3 characters.");
+  }
+
+  if (data.message.length < 10) {
+    errors.push("Enter a message with at least 10 characters.");
+  }
+
+  return errors;
+}
+
+form.noValidate = true;
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const data = {
+    name: document.getElementById("name").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    subject: document.getElementById("subject").value.trim(),
+    message: document.getElementById("message").value.trim()
+  };
+
+  const errors = validateForm(data);
+
+  if (errors.length > 0) {
+    feedback.textContent = errors.join(" ");
+    feedback.style.color = "red";
+    return;
+  }
+
+  try {
+    const saved = JSON.parse(
+      localStorage.getItem("bakeryMessages") || "[]"
+    );
+    const messages = Array.isArray(saved) ? saved : [];
+    messages.push(data);
+
+    localStorage.setItem(
+      "bakeryMessages",
+      JSON.stringify(messages)
+    );
+
+    feedback.textContent =
+      "Thank you! Your demo message was saved in this browser.";
+    feedback.style.color = "green";
+    form.reset();
+  } catch (error) {
+    feedback.textContent =
+      "Browser storage is unavailable. Please try again.";
+    feedback.style.color = "red";
+  }
+});
+
+
+function showSavedMessages() {
+  try {
+    const messages = JSON.parse(
+      localStorage.getItem("bakeryMessages") || "[]"
+    );
+
+    if (Array.isArray(messages) && messages.length > 0) {
+      const feedback = document.getElementById("form-feedback");
+      feedback.textContent =
+        "Saved messages in this browser: " + messages.length;
+      feedback.style.color = "green";
+    }
+  } catch (error) {
+    console.log("Unable to load saved messages.");
+  }
+}
+
+showSavedMessages();
+</script>
+
 </main>
 <footer class="site-footer"><p>&copy; 2026 North Star Bakery. All rights reserved.</p>
 <p><a href="contact.html">Contact Us</a> &middot; <a href="index.html">Back to Home</a></p></footer>
